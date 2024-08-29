@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
+
+/*      class HomeController extends AbstractController {
+    #[Route("/", name: "home")]
+
+    function index (Request $request): Response {
+       dd($request);
+        return new Response('Bonjour ' . $request->query->get('name', 'Inconnu'));
+    }
+}           */
+
+/* ***************************      Moteur de template twig: pour le href dans navbar "accueil"   ******************************************  */
+
+/*      class HomeController extends AbstractController {
+    #[Route("/", name: "home")]
+
+    function index (Request $request): Response {
+        return new Response('Bonjour ' . $request->query->get('name', 'Inconnu'));
+    }
+}       */
+
+
+/* ***************************      Moteur de template twig: pour styliser le fichier 'home/index.html.twig'  ******************************************  */
+
+class HomeController extends AbstractController {
+    #[Route("/", name: "home")]
+
+    function index (Request $request): Response {
+        return $this->render('home/index.html.twig');
+    }
+}

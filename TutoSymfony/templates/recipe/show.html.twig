@@ -1,0 +1,58 @@
+{#  {% extends 'base.html.twig' %}
+
+{% block title "Toutes les recettes" %}
+
+{% block body %}
+
+{{ slug }} {{person.lastname ~ person.firstname}}       //          {{person.firstname}} {{person.lastname}}   =     {{person.lastname ~ person.firstname}}  = une concaténation du nom avec le prénom         
+
+{% endblock %}
+#}
+
+{#      ***************************************Moteur de template twig: pour changer le titre "Toutes les recettes" par "Recette: " ~ slug    Le slug va chercher et compléter le titre ***************************************************      #}
+
+{#
+{% extends 'base.html.twig' %}
+
+{% block title "Recette: " ~ slug %}
+
+{% block body %}
+
+{{ slug }} {{person.lastname ~ person.firstname}} 
+
+{% endblock %}#}
+
+
+{#      ***************************************Moteur de template twig: pour appliquer un filtre. Le "upper" permet de mettre mon texte en majuscule ***************************************************      #}
+
+            {#    Filtre upper      
+                                {% extends 'base.html.twig' %}
+
+                                {% block title "Recette: " ~ slug %}
+
+                                {% block body %}
+
+                                {{ slug | upper}} 
+
+                                {% endblock %} #}
+            {#    Filtre raw: qui permet d'afficher quelque chose même si c'est du html    
+              {% extends 'base.html.twig' %}
+
+                                {% block title "Recette: " ~ slug %}
+
+                                {% block body %}
+
+                                {{ slug }} {{demo | raw}} 
+
+                                {% endblock %}      #}
+
+            {#    Filtre raw: si je veux vraiment afficher le html    #}
+              {% extends 'base.html.twig' %}
+
+                                {% block title "Recette: " ~ slug %}
+
+                                {% block body %}
+
+                                {{ slug }} {{demo | raw}} 
+
+                                {% endblock %}
