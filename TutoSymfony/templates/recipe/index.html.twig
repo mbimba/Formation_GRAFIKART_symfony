@@ -10,17 +10,42 @@ lorem ipsum dolor sit amet, consectetur adipisicing elit.
 
 
 
-{#      ******************************************************************************************      #}
-{% extends 'base.html.twig' %}
+      
+{# 
+ {% extends 'base.html.twig' %}
 
 {% block title "Toutes les recettes" %}
 
 {% block body %}
 lorem ipsum dolor sit amet, consectetur adipisicing elit.
+{% endblock %}              
+#}
+
+
+
+
+{#      **********************************  MOTEUR DE TEMPLATE TWIG: Les url ********************************************************      #}
+
+{% extends 'base.html.twig' %}
+
+{% block title "Toutes les recettes" %}
+
+{% block body %}
+<p>lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+{#          {{ dump(app.request)}}   le request permet de recupérer les query parameter       #}
+<ul>
+    <li>
+    <a href="{{url('recipe.show', {id: 32, slug: 'pate-bolognaise'}) }}">Pâtes bolognaises</a>
+    </li>
+</ul>
+
+
+
+
+
 {% endblock %}
 
 {#      ******************************************************************************************      #}
-
 
 
 
