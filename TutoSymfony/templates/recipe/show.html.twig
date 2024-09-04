@@ -46,7 +46,7 @@
 
                                 {% endblock %}      #}
 
-            {#    Filtre raw: si je veux vraiment afficher le html    #}
+            {#    Filtre raw: si je veux vraiment afficher le html    
               {% extends 'base.html.twig' %}
 
                                 {% block title "Recette: " ~ slug %}
@@ -55,4 +55,41 @@
 
                                 {{ slug }} {{demo | raw}} 
 
-                                {% endblock %}
+                                {% endblock %}    #}
+
+
+{#      **************************************    L'ORM Doctrine: à partir de 20min29s  ****************************************************     
+            {% extends 'base.html.twig' %}
+
+                                {% block title "Recette: " ~ recipe.title %}
+
+                                {% block body %}
+
+                              <h1> {{recipe.title}} </h1>
+
+                              <p>
+                              {{recipe.content | nl2br }}    {# Le filtre nl2br permet le transfert de saut de lignes   
+                              </p> 
+
+                               {% endblock %}     #}
+
+{#      **************************************    L'ORM Doctrine: à partir de 21min20s: Requête personnalisée (par exemple: pour afficher les requêtes qui durent moins de 10min)  ****************************************************      #}
+             {% extends 'base.html.twig' %}
+
+                                {% block title "Recette: " ~ recipe.title %}
+
+                                {% block body %}
+
+                              <h1> {{recipe.title}} </h1>
+
+                              <p>
+                              {{recipe.content | nl2br }}    {# Le filtre nl2br permet le transfert de saut de lignes   #}
+                              </p>
+
+                               {% endblock %}     
+
+{#      **************************************    L'ORM Doctrine: à partir de  ****************************************************     #}
+
+{#      **************************************    L'ORM Doctrine: à partir de  ****************************************************     #}
+
+{#      **************************************    L'ORM Doctrine: à partir de  ****************************************************     #}
