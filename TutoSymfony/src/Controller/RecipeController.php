@@ -379,7 +379,7 @@ class RecipeController extends AbstractController
       public function index(Request $request, RecipeRepository $repository, EntityManagerInterface $em): Response // em: comme EntityManager
       {
         $recipes = $repository->findWithDurationLowerThan(20);  // Find prend en paramètre l'id et permet de trouver un enregistrement en particulier. FindBy permet de spécifier un critère sous forme de tableau. '20' pour 20 minutes
-        $em->remove($recipes[0]); // Si on s'arrête à cette étape il ne va rien se passer
+        //$em->remove($recipes[0]); // Si on s'arrête à cette étape il ne va rien se passer.    Je mets la ligne en commentaire pour éviter qu'il continue à me supprimer les lignes de ma base de données
         $em->flush(); // Il faut lui demander de persister les informations grâce au flush pour que la supression se fasse.
 
       return $this->render('recipe/index.html.twig', [
