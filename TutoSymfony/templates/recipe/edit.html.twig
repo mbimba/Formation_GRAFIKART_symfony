@@ -1,0 +1,14 @@
+{#      **************************************    LES FORMULAIRES: à partir de 3min52  ****************************************************     #}
+           {% extends 'base.html.twig' %}
+
+                                {% block title "Recette: " ~ recipe.title %}
+
+                                {% block body %}
+
+                                    <h1> {{recipe.title}} </h1>
+
+                                    {{ form(form) }}  {#  le 1er 'form' est la fonction fournie par symfony. Et le 2ème 'form' est le nom de ma variable que j'ai choisi dans mon RecipeController    #}
+
+                               {% endblock %}     
+
+{#      **************************************    L'ORM Doctrine: à partir de  ****************************************************     #}

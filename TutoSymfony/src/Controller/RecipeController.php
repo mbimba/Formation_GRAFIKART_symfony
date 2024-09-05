@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Repository\RecipeRepository; 
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Recipe;        // ajout de cet use qui n'apparait pas dans la video de GrafikArt
+use App\Form\RecipeType;        // ajout de cet use qui n'apparait pas dans la video de GrafikArt (à partir de 5minutes)
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -410,6 +411,7 @@ class RecipeController extends AbstractController
   */  
 
 //  *********************   L'ORM Doctrine: part 4: à partir de 32min34secondes :  faire des requêtes différentes: ex: récupérer la durée totale de mes recettes    ********************
+/*
 class RecipeController extends AbstractController
 {
 
@@ -444,10 +446,70 @@ class RecipeController extends AbstractController
 
       }
   }
-//  *****************************       *************************
+*/
+
+  /*  ********************************     VIDEO GRAFIKART: LES FORMULAIRES: à partir de 2min      *********************   */
+  class RecipeController extends AbstractController
+  {
+  
+        #[Route('/recette', name: 'recipe.index')]
+        public function index(Request $request, RecipeRepository $repository): Response // em: comme EntityManager
+        {
+                
+        //dd($repository->findTotalDuration());   
+        $recipes= $repository->findWithDurationLowerThan(20);
+        return $this->render('recipe/index.html.twig', [
+          'recipes' => $recipes
+        ]);
+  
+        }
+  
+  
+        #[Route('/recette/{slug}-{id}', name: 'recipe.show', requirements: ['id' => '\d+', 'slug' => '[a-z0-9-]+'])]
+        public function show(Request $request, string $slug, int $id, RecipeRepository $repository): Response
+        {
+         //Pour chercher par l'id, on fait: 
+          $recipe = $repository->find($id);
+          if ($recipe->getSlug() !== $slug) {
+            return $this->redirectToRoute('recipe.show', ['slug' => $recipe->getSlug(), 'id' => $recipe->getId()]);
+          }
+          //Pour chercher par le slug, on fait: 
+                  //$recipe = $repository->findOneBy(['slug' => $slug]);
+         // dd($recipe);
+        return $this->render('recipe/show.html.twig' , [
+            'recipe' => $recipe 
+            
+        ]);
+  
+        }
+
+        #[Route('/recette/{id}/edit', name: 'recipe.edit')]
+        public function edit(Recipe $recipe)          // Attention: pour le test, mettre un id qui existe et qui est identique à celui qui est sur mon dbeaver, car je n'ai pas de ligne avec un id =2, et j'ai un message d'erreur.
+        {
+          //dd($recipe);
+          $form = $this->createForm(RecipeType::class, $recipe);
+          return $this->render('recipe/edit.html.twig' , [
+            'recipe' => $recipe,
+            'form' => $form
+            
+        ]);
+        }
+
+
+
+
+    }
+
+
+
+
 
 //  *****************************       *************************
 
 //  *****************************       *************************
 
 //  *****************************       *************************
+
+//  *****************************       *************************
+
+/*  ********************************     VIDEO GRAFIKART: LES FORMULAIRES       *********************   */
