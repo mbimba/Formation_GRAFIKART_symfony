@@ -371,7 +371,7 @@ class RecipeController extends AbstractController
   */
 
 //  *****************************   L'ORM Doctrine: part 4: à partir de 30min36secondes :  supprimer une recette ou un objet    *************************
-
+/*
 class RecipeController extends AbstractController
 {
 
@@ -380,7 +380,7 @@ class RecipeController extends AbstractController
       {
         $recipes = $repository->findWithDurationLowerThan(20);  // Find prend en paramètre l'id et permet de trouver un enregistrement en particulier. FindBy permet de spécifier un critère sous forme de tableau. '20' pour 20 minutes
         //$em->remove($recipes[0]); // Si on s'arrête à cette étape il ne va rien se passer.    Je mets la ligne en commentaire pour éviter qu'il continue à me supprimer les lignes de ma base de données
-        $em->flush(); // Il faut lui demander de persister les informations grâce au flush pour que la supression se fasse.
+        //$em->flush(); // Il faut lui demander de persister les informations grâce au flush pour que la supression se fasse.
 
       return $this->render('recipe/index.html.twig', [
         'recipes' => $recipes
@@ -407,10 +407,43 @@ class RecipeController extends AbstractController
 
       }
   }
-      
+  */  
 
-//  *****************************       *************************
+//  *********************   L'ORM Doctrine: part 4: à partir de 32min34secondes :  faire des requêtes différentes: ex: récupérer la durée totale de mes recettes    ********************
+class RecipeController extends AbstractController
+{
 
+      #[Route('/recette', name: 'recipe.index')]
+      public function index(Request $request, RecipeRepository $repository): Response // em: comme EntityManager
+      {
+              
+      //dd($repository->findTotalDuration());   
+      $recipes= $repository->findWithDurationLowerThan(20);
+      return $this->render('recipe/index.html.twig', [
+        'recipes' => $recipes
+      ]);
+
+      }
+
+
+      #[Route('/recette/{slug}-{id}', name: 'recipe.show', requirements: ['id' => '\d+', 'slug' => '[a-z0-9-]+'])]
+      public function show(Request $request, string $slug, int $id, RecipeRepository $repository): Response
+      {
+       //Pour chercher par l'id, on fait: 
+        $recipe = $repository->find($id);
+        if ($recipe->getSlug() !== $slug) {
+          return $this->redirectToRoute('recipe.show', ['slug' => $recipe->getSlug(), 'id' => $recipe->getId()]);
+        }
+        //Pour chercher par le slug, on fait: 
+                //$recipe = $repository->findOneBy(['slug' => $slug]);
+       // dd($recipe);
+      return $this->render('recipe/show.html.twig' , [
+          'recipe' => $recipe 
+          
+      ]);
+
+      }
+  }
 //  *****************************       *************************
 
 //  *****************************       *************************
