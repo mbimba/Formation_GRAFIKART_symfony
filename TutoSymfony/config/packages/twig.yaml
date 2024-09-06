@@ -1,5 +1,9 @@
+
+# ********************************     VIDEO GRAFIKART: LES FORMULAIRES: à partir de 6min14s      *********************   
+
 twig:
     file_name_pattern: '*.twig'
+    form_themes: ['bootstrap_5_layout.html.twig']  # Cette formule permet de changer la manière qu'a symfony de gérer les formulaires
 
 when@test:
     twig:

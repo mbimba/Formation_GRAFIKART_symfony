@@ -1,5 +1,5 @@
 {#      **************************************    LES FORMULAIRES: à partir de 3min52  ****************************************************     #}
-           {% extends 'base.html.twig' %}
+         {#    {% extends 'base.html.twig' %}
 
                                 {% block title "Recette: " ~ recipe.title %}
 
@@ -9,6 +9,60 @@
 
                                     {{ form(form) }}  {#  le 1er 'form' est la fonction fournie par symfony. Et le 2ème 'form' est le nom de ma variable que j'ai choisi dans mon RecipeController    #}
 
-                               {% endblock %}     
+   {#                             {% endblock %}     
+   #} 
 
-{#      **************************************    L'ORM Doctrine: à partir de  ****************************************************     #}
+
+{#      **************************************    LES FORMULAIRES: à partir de 7min20s: Pour donner d'autres formes à notre formulaire ****************************************************     #}
+ 
+ {# 
+   {% extends 'base.html.twig' %}
+
+    {% block title "Recette: " ~ recipe.title %}
+
+    {% block body %}
+
+        <h1> {{recipe.title}} </h1>
+
+        {{ form_start(form)}}
+            <div class="d-flex">
+                {{form_row(form.title)}}         {# le 'form-row' permet d'avoir le title et la duration côte à côte. Dans la 2ème poarenthèse le 1er form correspond au nom de ma variable et le 2ème form correspond au nom du champs que je veux éditer #}
+  {#               {{form_row(form.duration)}}
+            </div>
+        {{form_rest(form)}}      {# Si on veut afficher les autres champs qui manquent cad tous les champs qui n'ont pas préalablement été affichés dans notre formulaire: video 8min05s #}
+       
+   {#      {{form_end(form)}}
+
+    {% endblock %}  
+    #}
+    
+
+{#      **************************************    LES FORMULAIRES: à partir de 8min36: ajouter des boutons envoyer au formulaire ****************************************************     #}
+
+  {% extends 'base.html.twig' %}
+
+    {% block title "Recette: " ~ recipe.title %}
+
+    {% block body %}
+
+        <h1> {{recipe.title}} </h1>
+
+        {{ form(form)}} 
+
+    {% endblock %} 
+
+{#      **************************************    LES FORMULAIRES: à partir de  ****************************************************     #}
+
+{#      **************************************    LES FORMULAIRES: à partir de  ****************************************************     #}
+
+{#      **************************************    LES FORMULAIRES: à partir de  ****************************************************     #}
+
+{#      **************************************    LES FORMULAIRES: à partir de  ****************************************************     #}
+
+{#      **************************************    LES FORMULAIRES: à partir de  ****************************************************     #}
+
+{#      **************************************    LES FORMULAIRES: à partir de  ****************************************************     #}
+
+{#      **************************************    LES FORMULAIRES: à partir de  ****************************************************     #}
+
+{#      **************************************    LES FORMULAIRES: à partir de  ****************************************************     #}
