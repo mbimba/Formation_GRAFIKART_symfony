@@ -30,8 +30,13 @@
         </ul>
     </div>
     </nav>
-        <div class="container my-4">
-            {% block body %} {% endblock %}
+        <div class="container my-4">        <!-- Video GrafikArt: 14min25 (les formulaires) -->
+        {% include 'partials/flash.html.twig' %}        <!-- Video GrafikArt: il faut créer le dossier 'partials' dans templates. Et aussi créer le fichier 'flash.html.twig' -->
+             {#     {{dump(app.flashes)}}           #}  
+        
+        
+        {% block body %} {% endblock %}
+
         </div>
 
         

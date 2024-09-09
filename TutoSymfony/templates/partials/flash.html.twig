@@ -1,0 +1,11 @@
+{# VIDEO GRAFIKART: LES FORMULAIRES: à partir de 15min24: pour recevoir un message, une alerte #}
+
+{% for type, messages in app.flashes %}
+
+<div class="alert alert-{{type}}">
+
+{{ messages | join('. ') }}
+
+</div>
+
+{%  endfor %}

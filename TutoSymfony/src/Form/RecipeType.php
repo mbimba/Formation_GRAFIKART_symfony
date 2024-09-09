@@ -51,7 +51,7 @@ class RecipeType extends AbstractType
 }       */
 
 /*  ***************************************  VIDEO GrafikArt   "LES FORMULAIRES":         *******************************************         */
-
+/*
 class RecipeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -82,3 +82,41 @@ class RecipeType extends AbstractType
         ]);
     }
 }
+
+*/
+
+
+/*  ***************************************  VIDEO GrafikArt   "LES FORMULAIRES":   A partir de 10min48s      *******************************************         */
+class RecipeType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+        
+            ->add('title')                
+            ->add('slug')
+            ->add('content')
+            ->add('duration')           
+            ->add('save', SubmitType::class, [                     // Video: "forumulaires": 8min53: Ajout d'un nouveau bouton
+                    'label' => 'Envoyer'                            // pour modifier le libellé "save" du dessus, j'ai ajouté ce label poue "envoyer"
+            ])     
+                
+        ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Recipe::class,
+        ]);
+    }
+}
+
+
+
+
+/*  ***************************************  VIDEO GrafikArt   "LES FORMULAIRES":   A partir de       *******************************************         */
+/*  ***************************************  VIDEO GrafikArt   "LES FORMULAIRES":   A partir de       *******************************************         */
+/*  ***************************************  VIDEO GrafikArt   "LES FORMULAIRES":   A partir de       *******************************************         */
+/*  ***************************************  VIDEO GrafikArt   "LES FORMULAIRES":   A partir de       *******************************************         */
+/*  ***************************************  VIDEO GrafikArt   "LES FORMULAIRES":   A partir de       *******************************************         */
