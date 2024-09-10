@@ -796,7 +796,7 @@ class RecipeController extends AbstractController
 
 /*  ********************************  VIDEO GRAFIKART: LES FORMULAIRES  à partir de 24min54: pour supprimer une recette créée  *********************   */
 
-
+/*
 class RecipeController extends AbstractController
   {
   
@@ -883,11 +883,103 @@ class RecipeController extends AbstractController
         }
 
     } //  fin de la balise "class"
+*/
+
+//  *****************************    VIDEO GRAFIKART: LES FORMULAIRES  à partir de 33min30s   *************************
 
 
-//  *****************************    VIDEO GRAFIKART: LES FORMULAIRES  à partir de    *************************
+class RecipeController extends AbstractController
+  {
+  
+        #[Route('/recette', name: 'recipe.index')]
+        public function index(Request $request, RecipeRepository $repository): Response 
+        {
+                 
+        $recipes= $repository->findWithDurationLowerThan(20);
+        return $this->render('recipe/index.html.twig', [
+          'recipes' => $recipes
+        ]);
+  
+        }
+  
+  
+        #[Route('/recette/{slug}-{id}', name: 'recipe.show', requirements: ['id' => '\d+', 'slug' => '[a-z0-9-]+'])]
+        public function show(Request $request, string $slug, int $id, RecipeRepository $repository): Response
+        {
+         //Pour chercher par l'id, on fait: 
+          $recipe = $repository->find($id);
+          if ($recipe->getSlug() !== $slug) {
+            return $this->redirectToRoute('recipe.show', ['slug' => $recipe->getSlug(), 'id' => $recipe->getId()]);
+          }
+          //Pour chercher par le slug, on fait: 
+                  //$recipe = $repository->findOneBy(['slug' => $slug]);
+         // dd($recipe);
+        return $this->render('recipe/show.html.twig' , [
+            'recipe' => $recipe 
+            
+        ]);
+  
+        }
+
+        #[Route('/recette/{id}/edit', name: 'recipe.edit', methods: ['GET', 'POST'])] // Préciser la méthode qu'on attend: 25min39s
+        public function edit(Recipe $recipe, Request $request, EntityManagerInterface $em)          // Attention: pour le test, mettre un id qui existe et qui est identique à celui qui est sur mon dbeaver, car je n'ai pas de ligne avec un id =2, et j'ai un message d'erreur.
+        {
+          $form = $this->createForm(RecipeType::class, $recipe);
+          $form->handleRequest($request);       // on regarde si la requête est en 'post' et si le formulaire a été soumis. s'il a été soumis, il va modifier l'entité '$recipe' pour la remplir avec les données provenant du formulaire
+       
+          if($form->isSubmitted() && $form->isValid()){
+            //$recipe->setUpdatedAt(new \DateTimeImmutable());
+            $em->flush(); // 'flush' permet de sauvegarder les changements 
+          //Pour sauvegarder un message en session
+          $this->addFlash('success', 'La recette a bien été modifiée');   
+          return $this->redirectToRoute('recipe.index'); //permet de rediriger vers la route recipe.index
+          }
+          return $this->render('recipe/edit.html.twig' , [
+            'recipe' => $recipe,
+            'form' => $form
+         
+        ]);
+        }
+// Pour créer une nouvelle recette: on crée une nouvelle Route ci-dessous
+        #[Route('/recette/create', name: 'recipe.create')]
+        public function create(Request $request, EntityManagerInterface $em)
+        {
+          $recipe = new Recipe();
+          $form = $this->createForm(RecipeType::class, $recipe);
+          // Pour envoyer ma nouvelle recette créée dans le formulaire
+          $form->handleRequest($request);
+          if ($form->isSubmitted() && $form->isValid()) 
+          {        //Sur ma recette, avant que tu la persistes, je veux que tu fasses un setCreatedAt
+            //$recipe->setCreatedAt(new \DateTimeImmutable());
+            // Et je fais la même chose avec le setUpdatedAt
+            //$recipe->setUpdatedAt(new \DateTimeImmutable());
+            $em->persist($recipe);
+            $em->flush();
+            $this->addFlash('success' , 'La recette a bien été créée');
+            return $this->redirectToRoute('recipe.index');
+          }
+          return $this->render('recipe/create.html.twig', [
+            'form' => $form
+          ]);
+        }
+
+        // Pour supprimer une recette créée, on crée la fonction suivante:
+        #[Route('/recette/{id}', name: 'recipe.delete', methods: ['DELETE'])]
+        public function remove(Recipe $recipe, EntityManagerInterface $em)
+        {
+          $em->remove($recipe);
+          $em->flush(); //Pour sauvegarder les modifications
+          $this->addFlash('success' , 'La recette a bien été supprimée');
+          return $this->redirectToRoute('recipe.index');
+        }
+
+    } //  fin de la balise "class"
 
 /*  ********************************  VIDEO GRAFIKART: LES FORMULAIRES  à partir de      *********************   */
+
+
+
+
 
 //  *****************************    VIDEO GRAFIKART: LES FORMULAIRES  à partir de    *************************
 
